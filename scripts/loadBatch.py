@@ -15,10 +15,10 @@ def handler_name(event, context):
         batch_selection = image_keys[i:i+batch_size]
         if batch_selection in available_keys: # if keys not loaded yet
             batch = []
-            for obj in batch_selection:
-                s3.Object(bucket_url, f"loaded/{obj}").copy_from(bucket_url, obj) # rename keys as loaded
-                s3.Object(bucket_url, obj).delete() # delete loaded keys
-                batch.append(f"loaded/{obj}") # add final key to batch
+            for key in batch_selection:
+                s3.Object(bucket_url, f"loaded/{key}").copy_from(bucket_url, key) # rename keys as loaded
+                s3.Object(bucket_url, key).delete() # delete loaded keys
+                batch.append(f"loaded/{key}") # add final key to batch
             return {
                 "statusCode": 200,
                 "headers": {"Content-Type:", "application/json"},
