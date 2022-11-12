@@ -14,14 +14,15 @@ def handler_name(event, context):
     for i in range(0,len(available_keys),batch_size):
         batch_selection = image_keys[i:i+batch_size]
         if batch_selection in available_keys: # if keys not loaded yet
-            [s3.put_object(Bucket=bucket_url, Key=f"loaded/{obj}") for obj in batch_selection] # mark keys as loaded + break
-            batch_selection = [f"loaded/{obj}" for obj in batch_selection]
+            batch = []
+            for obj in batch_selection:
+                s3.Object(bucket_url, f"loaded/{obj}").copy_from(bucket_url, obj) # rename keys as loaded
+                s3.Object(bucket_url, obj).delete() # delete loaded keys
+                batch.append(f"loaded/{obj}") # add final key to batch
             return {
                 "statusCode": 200,
                 "headers": {"Content-Type:", "application/json"},
-                "body": json.dumps({"bucket": bucket_url,
-                            "batch_keys": batch_selection
-                            })
+                "body": json.dumps({"bucket": bucket_url, "batch_keys": batch})
             }
         else: raise Exception("Batch not loaded: objects not in Bucket")
 

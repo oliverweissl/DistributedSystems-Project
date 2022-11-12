@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="23d45b51-f5c0-4264-b667-80ec1c906bdf" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/fetchImage.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/fetchImage.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/loadBatch.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/loadBatch.py" afterDir="false" />
     </list>

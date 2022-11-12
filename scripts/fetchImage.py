@@ -1,5 +1,4 @@
 import boto3
-import math
 import json
 
 BATCH_SIZE = 64
