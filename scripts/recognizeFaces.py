@@ -1,13 +1,43 @@
 import json
+import boto3
+from botocore.exceptions import ClientError
+
+s3 = boto3.ressource("s3")
+
+class RekognitionImage:
+    def __init__(self, key, bucket, rekognition_client):
+        self.image = s3.Object(bucket, key)["Body"] # probably worng
+        self.rekognition_client = rekognition_client
+
+    def detect_faces(self):
+        try:
+            response = self.rekognition_client.detect_faces(
+                Image=self.image, Attributes=['BoundingBox','Confidence','Emotions'])
+            faces = [face for face in response['FaceDetails']]
+            print("Detected %s faces.", len(faces))
+        except ClientError:
+            raise Exception("Couldn't detect faces in %s.", self.image_name)
+        else:
+            return faces
+
+
 
 
 def handler_name(event, context):
-    var = event["body"]
+    bucket = event["bucket"]
+    images = event["batch_keys"]
 
-    # Do something
+    faces = dict
+    for key in images:
+        detected_faces = RekognitionImage(key, bucket, s3).detect_faces()
+        faces.update({key: detected_faces})
+
 
     return {
         "statusCode": 200,
         "headers": {"Content-Type:", "application/json"},
-        "body": json.dumps(var)
+        "body": json.dumps({
+            "bucket": bucket,
+            "detected_faces": faces
+        })
     }
