@@ -1,7 +1,9 @@
 import json
 import boto3
 
-s3 = boto3.resource("s3")
+ACCESS_KEY = None
+SECRET_KEY = None
+s3 = boto3.resource('s3', aws_access_key_id=ACCESS_KEY,aws_secret_access_key=SECRET_KEY)
 
 def handler_name(event, context):
     bucket_url = event["bucket"]
@@ -9,10 +11,10 @@ def handler_name(event, context):
     batch_size = event["batch_size"]
 
     bucket = s3.Bucket(bucket_url)  # define bucket to access
-    available_keys = [obj.key for obj in bucket.objects.all()]  # get all keys of objects in bucket
 
-    for i in range(0,len(available_keys),batch_size):
+    for i in range(0,len(image_keys),batch_size):
         batch_selection = image_keys[i:i+batch_size]
+        available_keys = [obj.key for obj in bucket.objects.all()]  # get all keys of objects in bucket
         if batch_selection in available_keys: # if keys not loaded yet
             batch = []
             for key in batch_selection:

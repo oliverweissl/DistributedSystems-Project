@@ -2,10 +2,13 @@ import boto3
 import json
 
 BATCH_SIZE = 64
-s3 = boto3.resource('s3')
+ACCESS_KEY = None
+SECRET_KEY = None
+s3 = boto3.resource('s3',aws_access_key_id=ACCESS_KEY,aws_secret_access_key=SECRET_KEY)
 
 def handler_name(event, context):
     bucket_url = event["body"] # access bucket URL in body
+
     bucket = s3.Bucket(bucket_url) # define bucket to access
     image_keys = [obj.key for obj in bucket.objects.all()] # get all keys of objects in bucket
 

@@ -2,7 +2,9 @@ import json
 import boto3
 from botocore.exceptions import ClientError
 
-s3 = boto3.ressource("s3")
+ACCESS_KEY = None
+SECRET_KEY = None
+rekognition = boto3.client('rekognition', aws_access_key_id=ACCESS_KEY,aws_secret_access_key=SECRET_KEY)
 
 class RekognitionImage:
     def __init__(self, key, bucket, rekognition_client):
@@ -29,7 +31,7 @@ def handler_name(event, context):
 
     faces = dict
     for key in images:
-        detected_faces = RekognitionImage(key, bucket, s3).detect_faces()
+        detected_faces = RekognitionImage(key, bucket, rekognition).detect_faces()
         faces.update({key: detected_faces})
 
 
