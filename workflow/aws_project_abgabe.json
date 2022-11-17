@@ -1,0 +1,149 @@
+{
+    "Comment": "A description of my state machine",
+    "StartAt": "API Gateway Invoke",
+    "States": {
+      "API Gateway Invoke": {
+        "Type": "Task",
+        "Resource": "arn:aws:states:::apigateway:invoke",
+        "Parameters": {
+          "ApiEndpoint": "MyApiId.execute-api.us-east-1.amazonaws.com",
+          "Method": "POST",
+          "Headers": {
+            "Header1": [
+              "HeaderValue1"
+            ],
+            "Header2": [
+              "HeaderValue2",
+              "HeaderValue3"
+            ]
+          },
+          "Stage": "MyStage",
+          "Path": "/pets/dog/1",
+          "QueryParameters": {
+            "QueryParameter1": [
+              "QueryParameterValue1"
+            ],
+            "QueryParameter2": [
+              "QueryParameterValue2",
+              "QueryParameterValue3"
+            ]
+          },
+          "RequestBody": {
+            "Payload": "Hello from Step Functions!"
+          },
+          "AuthType": "IAM_ROLE"
+        },
+        "Next": "fetchImage"
+      },
+      "fetchImage": {
+        "Type": "Task",
+        "Resource": "arn:aws:states:::lambda:invoke",
+        "OutputPath": "$.Payload",
+        "Parameters": {
+          "Payload.$": "$",
+          "FunctionName": ""
+        },
+        "Retry": [
+          {
+            "ErrorEquals": [
+              "Lambda.ServiceException",
+              "Lambda.AWSLambdaException",
+              "Lambda.SdkClientException"
+            ],
+            "IntervalSeconds": 2,
+            "MaxAttempts": 6,
+            "BackoffRate": 2
+          }
+        ],
+        "Next": "loadBatch"
+      },
+      "loadBatch": {
+        "Type": "Task",
+        "Resource": "arn:aws:states:::lambda:invoke",
+        "OutputPath": "$.Payload",
+        "Parameters": {
+          "Payload.$": "$",
+          "FunctionName": ""
+        },
+        "Retry": [
+          {
+            "ErrorEquals": [
+              "Lambda.ServiceException",
+              "Lambda.AWSLambdaException",
+              "Lambda.SdkClientException"
+            ],
+            "IntervalSeconds": 2,
+            "MaxAttempts": 6,
+            "BackoffRate": 2
+          }
+        ],
+        "Next": "recognizeFaces"
+      },
+      "recognizeFaces": {
+        "Type": "Task",
+        "Resource": "arn:aws:states:::lambda:invoke",
+        "OutputPath": "$.Payload",
+        "Parameters": {
+          "Payload.$": "$",
+          "FunctionName": ""
+        },
+        "Retry": [
+          {
+            "ErrorEquals": [
+              "Lambda.ServiceException",
+              "Lambda.AWSLambdaException",
+              "Lambda.SdkClientException"
+            ],
+            "IntervalSeconds": 2,
+            "MaxAttempts": 6,
+            "BackoffRate": 2
+          }
+        ],
+        "Next": "createCollage"
+      },
+      "createCollage": {
+        "Type": "Task",
+        "Resource": "arn:aws:states:::lambda:invoke",
+        "OutputPath": "$.Payload",
+        "Parameters": {
+          "Payload.$": "$",
+          "FunctionName": ""
+        },
+        "Retry": [
+          {
+            "ErrorEquals": [
+              "Lambda.ServiceException",
+              "Lambda.AWSLambdaException",
+              "Lambda.SdkClientException"
+            ],
+            "IntervalSeconds": 2,
+            "MaxAttempts": 6,
+            "BackoffRate": 2
+          }
+        ],
+        "Next": "moveToBucket"
+      },
+      "moveToBucket": {
+        "Type": "Task",
+        "Resource": "arn:aws:states:::lambda:invoke",
+        "OutputPath": "$.Payload",
+        "Parameters": {
+          "Payload.$": "$",
+          "FunctionName": ""
+        },
+        "Retry": [
+          {
+            "ErrorEquals": [
+              "Lambda.ServiceException",
+              "Lambda.AWSLambdaException",
+              "Lambda.SdkClientException"
+            ],
+            "IntervalSeconds": 2,
+            "MaxAttempts": 6,
+            "BackoffRate": 2
+          }
+        ],
+        "End": true
+      }
+    }
+  }
