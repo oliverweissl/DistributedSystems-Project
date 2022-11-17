@@ -5,7 +5,7 @@ ACCESS_KEY = None
 SECRET_KEY = None
 s3 = boto3.resource('s3', aws_access_key_id=ACCESS_KEY,aws_secret_access_key=SECRET_KEY)
 
-def handler_name(event, context):
+def lambda_handler(event, context):
     bucket_url = event["bucket"]
     image_keys = event["image_keys"]
     batch_size = event["batch_size"]

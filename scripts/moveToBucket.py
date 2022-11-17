@@ -1,7 +1,7 @@
 import json
 
 
-def handler_name(event, context):
+def lambda_handler(event, context):
     var = event["body"]
 
     # Do something

@@ -25,7 +25,7 @@ class RekognitionImage:
 
 
 
-def handler_name(event, context):
+def lambda_handler(event, context):
     bucket = event["bucket"]
     images = event["batch_keys"]
 
