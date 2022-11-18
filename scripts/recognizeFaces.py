@@ -1,29 +1,29 @@
 import json
-import io
 import boto3
-from botocore.exceptions import ClientError
 
-EMOTIONS = ["HAPPY", "SAD"]
 
-def extract_emotions(emotions_dict):
-    selected = emotions_dict[0:2]
-    return {EMOTIONS[0]: selected[0]["Confidence"],
-            EMOTIONS[1]: selected[1]["Confidence"]}
+def extract_emotions(emotions_dict: dict, emotions: list) -> dict:
+    r_dict = {}
+    for val in emotions: # reduce dict to {Emotion: ConfidenceValue}
+        r_dict.update({val: [entry for entry in emotions_dict if emotions_dict[entry]["Type"] == val][0]["Confidence"]})
+    return r_dict
+
 
 class RekognitionImage:
-    def __init__(self, key, bucket, rekognition_client):
+    def __init__(self, key, bucket, rekognition_client, emotions: list):
         self.rekognition_client = rekognition_client
         self.bucket = bucket
         self.key = key
+        self.emotions = emotions
 
-    def detect_faces(self):
+    def detect_faces(self) -> list:
         response = self.rekognition_client.detect_faces(
             Image={'S3Object': {'Bucket': self.bucket, 'Name': self.key}},
             Attributes=['ALL'])
 
         faces = [{"BoundingBox": face["BoundingBox"],
                   "Confidence": face["Confidence"],
-                  "Emotions": extract_emotions(face["Emotions"])} for face in response["FaceDetails"]]
+                  "Emotions": extract_emotions(face["Emotions"], self.emotions)} for face in response["FaceDetails"]]
         return faces
 
 
@@ -32,10 +32,12 @@ def lambda_handler(event, context):
 
     bucket = event["body"]["bucket"]
     images = event["body"]["batch_keys"]
+    emotions = event["body"]["emotions"]
+    face_size = event["body"]["face_size"]
 
     faces = []
     for key in images:
-        detected_faces = RekognitionImage(key, bucket, rekognition).detect_faces()
+        detected_faces = RekognitionImage(key, bucket, rekognition, emotions).detect_faces()
         faces.append({
             "key": key,
             "faces": detected_faces})
@@ -45,7 +47,8 @@ def lambda_handler(event, context):
         "headers": {"Content-Type": "application/json"},
         "body": json.dumps({
             "bucket": bucket,
-            "emotions": EMOTIONS,
-            "detected_faces": faces
+            "emotions": emotions,
+            "detected_faces": faces,
+            "face_size": face_size
         })
     }

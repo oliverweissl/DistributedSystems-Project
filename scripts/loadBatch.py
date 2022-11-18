@@ -1,12 +1,15 @@
 import json
 import boto3
 
+
 def lambda_handler(event, context):
     s3 = boto3.resource('s3')
 
     bucket_url = event["body"]["bucket"]
     image_keys = event["body"]["image_keys"]
     batch_size = event["body"]["batch_size"]
+    emotions = event["body"]["emotions"]
+    face_size = event["body"]["face_size"]
 
     bucket = s3.Bucket(bucket_url)  # define bucket to access
     for i in range(0, len(image_keys), batch_size):
@@ -22,7 +25,10 @@ def lambda_handler(event, context):
             return {
                 "statusCode": 200,
                 "headers": {"Content-Type": "application/json"},
-                "body": json.dumps({"bucket": bucket_url, "batch_keys": batch})
+                "body": json.dumps({"bucket": bucket_url,
+                                    "batch_keys": batch,
+                                    "emotions": emotions,
+                                    "face_size": face_size})
             }
         else:
             raise Exception("Batch not loaded: objects not in Bucket")
