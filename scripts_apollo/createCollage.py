@@ -23,9 +23,10 @@ def lambda_handler(event, context):
     s3 = boto3.resource('s3')
     client = boto3.client('s3')
 
-    emotions = event["body"]["emotions"]
-    bucket_url = event["body"]["bucket"]
-    face_size = event["body"]["face_size"]
+    json_input = event["body"]
+    emotions = json_input["emotions"]
+    bucket_url = json_input["bucket"]
+    face_size = json_input["face_size"]
 
     bucket = s3.Bucket(bucket_url)
     for emotion in emotions:

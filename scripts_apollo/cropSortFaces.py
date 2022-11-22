@@ -20,9 +20,10 @@ def lambda_handler(event, context):
     s3 = boto3.resource('s3')
     client = boto3.client('s3')
 
-    bucket = event["bucket"]
-    detected_faces = event["detected_faces"]
-    face_size = event["face_size"]
+    json_input = event["body"]
+    bucket = json_input["bucket"]
+    detected_faces = json_input["detected_faces"]
+    face_size = json_input["face_size"]
 
     keys, bbox_arr, emotions_arr = [], [], []
     for instance in detected_faces:  # look at all detected faces in all images

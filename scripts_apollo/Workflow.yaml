@@ -1,0 +1,108 @@
+---
+name: "ds_project"
+dataIns:
+- name: "bucket"
+  type: "string"
+  source: "bucket"
+- name: "batch_size"
+  type: "number"
+  source: "batch_size"
+- name: "emotions"
+  type: "collection"
+  source: "emotions"
+- name: "face_size"
+  type: "collection"
+  source: "face_size"
+workflowBody:
+- function:
+    name: "fetchImages"
+    type: "fetchImage"
+    dataIns:
+    - name: "bucket"
+      type: "string"
+      source: "ds_project/bucket"
+    - name: "batch_size"
+      type: "number"
+      source: "ds_project/batch_size"
+    dataOuts:
+    - name: "keys"
+      type: "collection"
+- parallelFor:
+    name: "parralelFor"
+    dataIns:
+    - name: "iterator"
+      type: "collection"
+      source: "fetchImages/keys"
+    iterators: ["iterator"]
+    loopBody:
+    - function:
+        name: "recognizeFaces"
+        type: "recognizeFaces"
+        dataIns:
+        - name: "split_keys"
+          type: "collection"
+          source: "parralelFor/iterator"
+        - name: "bucket"
+          type: "string"
+          source: "ds_project/bucket"
+        - name: "emotions"
+          type: "collection"
+          source: "ds_project/emotions"
+        dataOuts:
+        - name: "detected_faces"
+          type: "collection"
+    - function:
+        name: "cropSortFaces"
+        type: "cropSortFaces"
+        dataIns:
+        - name: "bucket"
+          type: "string"
+          source: "ds_project/bucket"
+        - name: "detected_faces"
+          type: "collection"
+          source: "recognizeFaces/detected_faces"
+        - name: "face_size"
+          type: "collection"
+          source: "ds_project/face_size"
+        dataOuts:
+        - name: "statusCode"
+          type: "number"
+    dataOuts:
+    - name: "statusCode"
+      type: "collection"
+      source: "cropSortFaces/statusCode"
+- parallelFor:
+    name: "createCollages"
+    dataIns:
+    - name: "timer"
+      type: "collection"
+      source: "parralelFor/statusCode"
+    - name: "iterator"
+      type: "collection"
+      source: "ds_project/emotions"
+    iterators: ["timer", "iterator"]
+    loopBody:
+    - function:
+        name: "createCollage"
+        type: "createCollage"
+        dataIns:
+        - name: "bucket"
+          type: "string"
+          source: "ds_project/bucket"
+        - name: "emotion"
+          type: "collection"
+          source: "createCollages/iterator"
+        - name: "face_size"
+          type: "collection"
+          source: "ds_project/face_size"
+        dataOuts:
+        - name: "statusCode"
+          type: "number"
+    dataOuts:
+    - name: "statusCode"
+      type: "collection"
+      source: "createCollage/statusCode"
+dataOuts:
+- name: "statusCode"
+  type: "collection"
+  source: "createCollages/statusCode"

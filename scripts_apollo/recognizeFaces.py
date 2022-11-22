@@ -26,7 +26,8 @@ class RekognitionImage:
         return faces
 
 
-def lambda_handler(json_input,context):
+def lambda_handler(event,context):
+    json_input = event["body"]
     images = json_input["split_keys"]
     bucket_url = json_input["bucket"]
     emotions = json_input["emotions"]
