@@ -1,11 +1,10 @@
 import json
 import boto3
 
-
 def extract_emotions(emotions_dict: dict, emotions: list) -> dict:
     r_dict = {}
     for val in emotions: # reduce dict to {Emotion: ConfidenceValue}
-        r_dict.update({val: [entry for entry in emotions_dict if emotions_dict[entry]["Type"] == val][0]["Confidence"]})
+        r_dict.update({val: [entry for i, entry in enumerate(emotions_dict) if emotions_dict[i]["Type"] == val][0]["Confidence"]})
     return r_dict
 
 
@@ -27,19 +26,20 @@ class RekognitionImage:
         return faces
 
 
-def lambda_handler(event, context):
-    rekognition = boto3.client('rekognition')
+def lambda_handler(json_input,context):
+    images = json_input["split_keys"]
+    bucket_url = json_input["bucket"]
+    emotions = json_input["emotions"]
 
-    bucket = event["bucket"]
-    images = event["split_keys"]
-    emotions = event["emotions"]
+    rekognition = boto3.client('rekognition')
 
     faces = []
     for key in images:
-        detected_faces = RekognitionImage(key, bucket, rekognition, emotions).detect_faces()
+        detected_faces = RekognitionImage(key, bucket_url, rekognition, emotions).detect_faces()
         faces.append({
             "key": key,
             "faces": detected_faces})
+
 
     return {
         "detected_faces": json.dumps(faces)
