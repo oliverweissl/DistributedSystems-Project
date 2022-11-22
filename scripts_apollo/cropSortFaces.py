@@ -1,5 +1,6 @@
 import io
 import sys
+import json
 import boto3
 
 from pip._internal import main
@@ -20,7 +21,7 @@ def lambda_handler(event, context):
     s3 = boto3.resource('s3')
     client = boto3.client('s3')
 
-    json_input = event["body"]
+    json_input = json.loads(event["body"])
     bucket = json_input["bucket"]
     detected_faces = json_input["detected_faces"]
     face_size = json_input["face_size"]

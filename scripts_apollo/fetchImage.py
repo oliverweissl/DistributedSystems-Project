@@ -12,7 +12,7 @@ def get_sublists(original, amt):
 def lambda_handler(event, context):
     s3 = boto3.resource('s3')
 
-    json_input = event["body"]
+    json_input = json.loads(event["body"])
     bucket_url = json_input["bucket"] # access bucket URL in body
     batch_size = json_input["batch_size"]
 

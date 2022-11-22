@@ -27,7 +27,7 @@ class RekognitionImage:
 
 
 def lambda_handler(event,context):
-    json_input = event["body"]
+    json_input = json.loads(event["body"])
     images = json_input["split_keys"]
     bucket_url = json_input["bucket"]
     emotions = json_input["emotions"]

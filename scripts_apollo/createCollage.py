@@ -1,4 +1,5 @@
 import io
+import json
 import sys
 import math
 import boto3
@@ -23,7 +24,7 @@ def lambda_handler(event, context):
     s3 = boto3.resource('s3')
     client = boto3.client('s3')
 
-    json_input = event["body"]
+    json_input = json.loads(event["body"])
     emotions = json_input["emotions"]
     bucket_url = json_input["bucket"]
     face_size = json_input["face_size"]
