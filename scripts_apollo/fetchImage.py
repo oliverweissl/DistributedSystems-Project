@@ -22,5 +22,5 @@ def lambda_handler(event, context):
     keys = get_sublists(image_keys, amt)
 
     return {
-        "keys": json.dumps(keys)
+        "keys": [image_keys[count::amt] for count in range(amt)]
     }

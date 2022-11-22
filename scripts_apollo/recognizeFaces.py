@@ -43,5 +43,5 @@ def lambda_handler(event,context):
 
 
     return {
-        "detected_faces": json.dumps(faces)
+        "detected_faces": faces
     }
