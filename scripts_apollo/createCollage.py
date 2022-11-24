@@ -50,5 +50,6 @@ def lambda_handler(event, context):
 
 
     return {
-        "statusCode": 200
+        "statusCode": 200,
+        "body": {"statusCode": 200}
     }

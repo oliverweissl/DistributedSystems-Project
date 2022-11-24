@@ -36,7 +36,7 @@ def lambda_handler(event, context):
     for i, key in enumerate(keys):  # cutout all faces from each image
         obj = s3.Object(bucket_name=bucket, key=key)  # get image from S3
         obj_body = obj.get()['Body'].read()  # get image data
-        with  Image.open(io.BytesIO(obj_body)) as img:  # open image with pillow
+        with Image.open(io.BytesIO(obj_body)) as img:  # open image with pillow
             w, h = img.size  # get image dimensions
 
             tmp_faces = bbox_arr[i]  # faces in the image
@@ -58,5 +58,6 @@ def lambda_handler(event, context):
                     )
 
     return {
-        "statusCode": 200
+        "statusCode": 200,
+        "body": {"statusCode": 200}
     }
