@@ -4,9 +4,6 @@ import sys
 import math
 import boto3
 
-from pip._internal import main
-main(["install", "pillow", "--target", "/tmp/"])
-sys.path.insert(0, "/tmp/")
 from PIL import Image
 
 

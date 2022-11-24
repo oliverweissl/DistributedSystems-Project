@@ -68,24 +68,24 @@ workflowBody:
         - name: "statusCode"
           type: "number"
     dataOuts:
-    - name: "statusCode"
+    - name: "status_code"
       type: "collection"
       source: "cropSortFaces/statusCode"
 - parallelFor:
     name: "createCollages"
     dataIns:
-    - name: "timer"
-      type: "collection"
-      source: "parralelFor/statusCode"
     - name: "iterator"
       type: "collection"
       source: "ds_project/emotions"
-    iterators: ["timer", "iterator"]
+    iterators: ["iterator"]
     loopBody:
     - function:
         name: "createCollage"
         type: "createCollage"
         dataIns:
+        - name: "timer"
+          type: "collection"
+          source: "parralelFor/status_code"
         - name: "bucket"
           type: "string"
           source: "ds_project/bucket"
