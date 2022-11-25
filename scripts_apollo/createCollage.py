@@ -2,7 +2,7 @@ import io
 import json
 import math
 import boto3
-
+from time import perf_counter_ns
 from PIL import Image
 
 
@@ -17,7 +17,10 @@ def create_collage(image_array: list, sizes: int) -> Image.Image:
                 temp.paste(image_array[index], (i * sizes, j * sizes))  # add face to temp image
     return temp
 
+
 def lambda_handler(event, context):
+    start = perf_counter_ns()
+
     s3 = boto3.resource('s3')
     client = boto3.client('s3')
 
@@ -27,22 +30,22 @@ def lambda_handler(event, context):
     face_size = json_input["face_size"]
 
     bucket = s3.Bucket(bucket_url)
-    images = [Image.open(io.BytesIO(obj.get()['Body'].read())) for obj in bucket.objects.filter(Prefix = f"{emotion}/")]
+    images = [Image.open(io.BytesIO(obj.get()['Body'].read())) for obj in bucket.objects.filter(Prefix=f"{emotion}/")]
 
     if len(images) > 0:
         collage = create_collage(images, face_size)
+
         in_mem_file = io.BytesIO()
         collage.save(in_mem_file, format="png")
-        in_mem_file.seek(0)
+        in_mem_file.seek(0)  # reverses byte-stream to display the image in correct orientation
 
         client.upload_fileobj(
             in_mem_file,
             bucket_url,
             f"{emotion}_collage.png")
 
-
-
+    stop = perf_counter_ns()
     return {
-        "statusCode": 200,
-        "body": {"statusCode": 200}
+        "runtime": stop-start,
+        "stop": stop
     }
