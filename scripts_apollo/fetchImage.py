@@ -1,10 +1,12 @@
 import json
 import boto3
 from time import perf_counter_ns
+from time import time
 
 
 def lambda_handler(event, context):
-    start = perf_counter_ns()
+    start = time()
+    start_perf = perf_counter_ns()
     s3 = boto3.resource('s3')
 
     json_input = json.loads(event["body"])
@@ -19,5 +21,5 @@ def lambda_handler(event, context):
     return {
         "keys": [image_keys[count::amt] for count in range(amt)],
         "start": start,
-        "runtime": stop-start
+        "runtime": stop-start_perf
     }

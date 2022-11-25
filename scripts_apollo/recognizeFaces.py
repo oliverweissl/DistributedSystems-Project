@@ -1,6 +1,7 @@
 import json
 import boto3
 from time import perf_counter_ns
+from time import time
 
 class RekognitionImage:
     def __init__(self, key: str, bucket: str, emotions: list):
@@ -28,7 +29,8 @@ class RekognitionImage:
 
 
 def lambda_handler(event, context):
-    start = perf_counter_ns()
+    start = time()
+    start_perf = perf_counter_ns()
 
     json_input = json.loads(event["body"])
     images = json_input["split_keys"]
@@ -46,5 +48,5 @@ def lambda_handler(event, context):
     return {
         "detected_faces": all_faces,
         "start": start,
-        "runtime": stop - start
+        "runtime": stop-start_perf
     }

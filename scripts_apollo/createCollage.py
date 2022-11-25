@@ -3,6 +3,7 @@ import json
 import math
 import boto3
 from time import perf_counter_ns
+from time import time
 from PIL import Image
 
 
@@ -19,7 +20,8 @@ def create_collage(image_array: list, sizes: int) -> Image.Image:
 
 
 def lambda_handler(event, context):
-    start = perf_counter_ns()
+    start = time()
+    start_perf = perf_counter_ns()
 
     s3 = boto3.resource('s3')
     client = boto3.client('s3')
@@ -44,9 +46,10 @@ def lambda_handler(event, context):
             bucket_url,
             f"{emotion}_collage.png")
 
-    stop = perf_counter_ns()
+    stop_perf = perf_counter_ns()
+    stop = time()
     return {
         "start": start,
-        "runtime": stop-start,
+        "runtime": stop_perf-start_perf,
         "stop": stop
     }

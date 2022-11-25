@@ -2,6 +2,7 @@ import io
 import json
 import boto3
 from time import perf_counter_ns
+from time import time
 from PIL import Image
 
 
@@ -14,7 +15,8 @@ def bbox_to_list(bbox: dict) -> list:  # returns list with position of bbox
 
 
 def lambda_handler(event, context):
-    start = perf_counter_ns()
+    start = time()
+    start_perf = perf_counter_ns()
 
     json_input = json.loads(event["body"])
     bucket_url = json_input["bucket"]
@@ -64,5 +66,5 @@ def lambda_handler(event, context):
     stop = perf_counter_ns()
     return {
         "start": start,
-        "runtime": stop-start
+        "runtime": stop-start_perf
     }
