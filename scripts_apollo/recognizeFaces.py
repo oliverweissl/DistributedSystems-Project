@@ -1,19 +1,19 @@
 import json
 import boto3
 
-def extract_emotions(emotions_dict: dict, emotions: list) -> dict:
-    r_dict = {}
-    for val in emotions: # reduce dict to {Emotion: ConfidenceValue}
-        r_dict.update({val: [entry for i, entry in enumerate(emotions_dict) if emotions_dict[i]["Type"] == val][0]["Confidence"]})
-    return r_dict
-
-
 class RekognitionImage:
     def __init__(self, key, bucket, rekognition_client, emotions: list):
         self.rekognition_client = rekognition_client
         self.bucket = bucket
         self.key = key
         self.emotions = emotions
+
+    def extract_emotions(self, emotions_dict: dict) -> dict:
+        r_dict = {}
+        for val in self.emotions:  # reduce dict to {Emotion: ConfidenceValue}
+            r_dict.update({val: [entry for i, entry in enumerate(emotions_dict) if emotions_dict[i]["Type"] == val][0][
+                "Confidence"]})
+        return r_dict
 
     def detect_faces(self) -> list:
         response = self.rekognition_client.detect_faces(
@@ -22,11 +22,11 @@ class RekognitionImage:
 
         faces = [{"BoundingBox": face["BoundingBox"],
                   "Confidence": face["Confidence"],
-                  "Emotions": extract_emotions(face["Emotions"], self.emotions)} for face in response["FaceDetails"]]
+                  "Emotions": self.extract_emotions(face["Emotions"])} for face in response["FaceDetails"]]
         return faces
 
 
-def lambda_handler(event,context):
+def lambda_handler(event, context):
     json_input = json.loads(event["body"])
     images = json_input["split_keys"]
     bucket_url = json_input["bucket"]
@@ -40,7 +40,6 @@ def lambda_handler(event,context):
         faces.append({
             "key": key,
             "faces": detected_faces})
-
 
     return {
         "detected_faces": faces
