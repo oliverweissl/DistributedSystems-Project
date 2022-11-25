@@ -46,6 +46,7 @@ def lambda_handler(event, context):
 
     stop = perf_counter_ns()
     return {
+        "start": start,
         "runtime": stop-start,
         "stop": stop
     }

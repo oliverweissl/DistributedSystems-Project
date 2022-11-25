@@ -45,5 +45,6 @@ def lambda_handler(event, context):
     stop = perf_counter_ns()
     return {
         "detected_faces": all_faces,
+        "start": start,
         "runtime": stop - start
     }

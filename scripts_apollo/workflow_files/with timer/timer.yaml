@@ -55,6 +55,8 @@ workflowBody:
         dataOuts:
         - name: "detected_faces"
           type: "collection"
+        - name: "start"
+          type: "number"
         - name: "runtime"
           type: "number"
     - function:
@@ -71,6 +73,8 @@ workflowBody:
           type: "collection"
           source: "ds_project/face_size"
         dataOuts:
+        - name: "start"
+          type: "number"
         - name: "runtime"
           type: "number"
     dataOuts:
@@ -80,6 +84,12 @@ workflowBody:
     - name: "runtime_cropSortFaces"
       type: "collection"
       source: "cropSortFaces/runtime"
+    - name: "start_recognizeFaces"
+      type: "collection"
+      source: "recognizeFaces/start"
+    - name: "start_cropSortFaces"
+      type: "collection"
+      source: "cropSortFaces/start"
 - parallelFor:
     name: "createCollages"
     dataIns:
@@ -105,6 +115,8 @@ workflowBody:
           type: "collection"
           source: "ds_project/face_size"
         dataOuts:
+        - name: "start"
+          type: "number"
         - name: "runtime"
           type: "number"
         - name: "stop"
@@ -116,6 +128,9 @@ workflowBody:
     - name: "stop_createCollage"
       type: "collection"
       source: "createCollage/stop"
+    - name: "start_createCollage"
+      type: "collection"
+      source: "createCollage/start"
 - function:
     name: "collectRuntime"
     type: "collectRuntime"
@@ -132,12 +147,21 @@ workflowBody:
     - name: "runtime_fetchImage"
       type: "number"
       source: "fetchImages/runtime"
+    - name: "start_recognizeFaces"
+      type: "collection"
+      source: "parralelFor/start_recognizeFaces"
     - name: "runtime_recognizeFaces"
       type: "collection"
       source: "parralelFor/runtime_recognizeFaces"
+    - name: "start_cropSortFaces"
+      type: "collection"
+      source: "parralelFor/start_cropSortFaces"
     - name: "runtime_cropSortFaces"
       type: "collection"
       source: "parralelFor/runtime_cropSortFaces"
+    - name: "start_createCollage"
+      type: "collection"
+      source: "createCollages/start_createCollage"
     - name: "runtime_createCollage"
       type: "collection"
       source: "createCollages/runtime_createCollage"
