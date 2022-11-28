@@ -1,5 +1,7 @@
 import io
+import csv
 import json
+import time
 import boto3
 from matplotlib import pyplot
 from matplotlib.legend_handler import HandlerTuple
@@ -33,7 +35,7 @@ def lambda_handler(event, context):
     start_createCollage = [(x - start) * SEC_TO_MS for x in json_input["start_createCollage"]]  # list
 
     # lists of input for easier iterating
-    runtime_list = [runtime_recognizeFaces, runtime_cropSortFaces, runtime_createCollage]
+    runtime_list = [[runtime_fetchImage], runtime_recognizeFaces, runtime_cropSortFaces, runtime_createCollage]
     start_list = [start_recognizeFaces, start_cropSortFaces, start_createCollage]
     runtime_labels = ["Total Runtime",
                       "Runtime fetchImage",
@@ -45,17 +47,17 @@ def lambda_handler(event, context):
     """
     Plotting the values
     """
-    plt, ax = pyplot.subplots(1, 1,figsize=(8,4))
+    plt, ax = pyplot.subplots(1, 1, figsize=(8, 4))
     X = 1
     t = ax.bar(X - 0.1, total_runtime, color="grey", width=1, linewidth=1.0, edgecolor="black")
     rf = ax.bar(X - 0.1, runtime_fetchImage, color="blue", width=1, linewidth=1.0, edgecolor="black")
 
     bottom = runtime_fetchImage
     rts = [t, rf]
-    for i, l in enumerate(runtime_list):
+    for i, l in enumerate(runtime_list[1:]):
         width = 1 / len(l)
         offset = len(l) / 2 * width if len(l) % 2 > 0 else len(l) / 2 * width - 0.15
-        color = cm.hsv(i / 16 * len(runtime_list))
+        color = cm.hsv(i / 16 * len(runtime_list[1:]))
 
         temp_tup = ()
         for j, runtime in enumerate(l):
@@ -84,7 +86,7 @@ def lambda_handler(event, context):
     """
     Uploading Figure
     """
-
+    date = time.strftime('%j.%H:%M:%S')
     with io.BytesIO() as tmp_fig:
         plt.savefig(tmp_fig, format="png")
         tmp_fig.seek(0)
@@ -92,7 +94,20 @@ def lambda_handler(event, context):
         client.upload_fileobj(
             tmp_fig,
             bucket_url,
-            f"FIGURES/runtimeFigure_{id(tmp_fig)}.png")
+            f"FIGURES/runtimeFigure_{date}.png")
+
+    with io.StringIO() as tmp_csv:
+        writer = csv.writer(tmp_csv, delimiter=",", quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        for arr in runtime_list:
+            writer.writerow(arr)
+        tmp_csv.seek(0)
+
+        with io.BytesIO(tmp_csv.getvalue().encode()) as fin_csv:
+            client.upload_fileobj(
+                fin_csv,
+                bucket_url,
+                f"FIGURES/runtimeData_{date}.csv"
+            )
 
     return {
         "statusCode": 200,

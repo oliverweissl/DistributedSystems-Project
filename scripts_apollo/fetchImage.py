@@ -14,7 +14,7 @@ def lambda_handler(event, context):
     batch_size = json_input["batch_size"]
 
     bucket = s3.Bucket(bucket_url)  # define bucket to access
-    image_keys = [obj.key for obj in bucket.objects.all()]  # get all keys of objects in bucket
+    image_keys = [obj.key for obj in bucket.objects.filter(Prefix="IMAGES/") if '.' in obj.key]  # get all keys of objects in bucket
     amt = int(len(image_keys)/batch_size+0.5)  # gets amount of sublists --> rounds up to next integer
 
     stop = perf_counter_ns()

@@ -48,6 +48,7 @@ def lambda_handler(event, context):
 
     stop_perf = perf_counter_ns()
     stop = time()
+    [s3.Object(bucket_url, obj.key).delete() for obj in bucket.objects.filter(Prefix=emotion)]
     return {
         "start": start,
         "runtime": stop_perf-start_perf,
