@@ -2,7 +2,6 @@ import redis
 import random
 
 # redis connection --> change host
-
 r = redis.Redis(host=input("Enter Host: "), port=6379, db=0, password=input("Enter Password: "))
 
 # sets 10 random entries
@@ -24,7 +23,7 @@ def del_all(keys):
         r.delete(key)
 
 
-# retrives all keys on redis cluster
+# retrieves all keys on redis cluster
 keys = r.scan_iter()
 
 print(f"Values: {retrieve_entry(keys=keys)}")

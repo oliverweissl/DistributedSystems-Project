@@ -21,8 +21,38 @@
   <component name="ChangeListManager">
     <list default="true" id="23d45b51-f5c0-4264-b667-80ec1c906bdf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/createCollage.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/createCollage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/recognizeFaces.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/recognizeFaces.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/createCollage/cloud_function.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/createCollage/handler.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/createCollage/handler_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/createCollage/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/createCollage/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/createCollage/tox.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/cropSortFaces/cloud_function.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/cropSortFaces/handler.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/cropSortFaces/handler_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/cropSortFaces/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/cropSortFaces/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/cropSortFaces/tox.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/fetchImage/cloud_function.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/fetchImage/handler.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/fetchImage/handler_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/fetchImage/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/fetchImage/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/fetchImage/tox.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/recognizeFaces/cloud_function.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/recognizeFaces/handler.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/recognizeFaces/handler_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/recognizeFaces/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/recognizeFaces/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionTemplate-master/functions/recognizeFaces/tox.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apollo_workflow/solutions/Workflow/models/workflow_module.mps" beforeDir="false" afterPath="$PROJECT_DIR$/apollo_workflow/solutions/Workflow/models/workflow_module.mps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/redisScript.py" beforeDir="false" afterPath="$PROJECT_DIR$/redisScript.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/createCollage_old.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/createCollage_old.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts_apollo/.ipynb_checkpoints/Untitled-checkpoint.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts_apollo/Untitled.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts_apollo/cropSortFaces.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts_apollo/cropSortFaces.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflow/Workflow.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflow/Workflow.yaml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,10 +75,21 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="full.screen.before.presentation.mode" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/FunctionTemplate-master/aws" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\olive\DS_Project_Functions\FunctionTemplate-master\aws" />
+      <recent name="C:\Users\olive\DS_Project_Functions\FunctionTemplate-master\functions" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\olive\DS_Project_Functions\FunctionTemplate-master" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.redisScript">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="DS_Project_Functions" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -70,6 +111,54 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="redisScript" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DS_Project_Functions" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/redisScript.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DS_Project_Functions" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts_apollo" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts_apollo/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.redisScript" />
+        <item itemvalue="Python.test" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -95,9 +184,41 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="547" y="167" key="FileChooserDialogImpl" timestamp="1668255819782">
+    <state x="395" y="91" key="#Inspections" timestamp="1669371912975">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="547" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1668255819782" />
+    <state x="395" y="91" key="#Inspections/0.0.1536.824@0.0.1536.824" timestamp="1669371912975" />
+    <state x="363" y="217" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1668881602570">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="363" y="217" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1668881602570" />
+    <state x="547" y="167" key="FileChooserDialogImpl" timestamp="1668846195695">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="547" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1668846195695" />
+    <state width="1515" height="334" key="GridCell.Tab.0.bottom" timestamp="1670409446216">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="334" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1670409446216" />
+    <state width="1515" height="334" key="GridCell.Tab.0.center" timestamp="1670409446216">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="334" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1670409446216" />
+    <state width="1515" height="334" key="GridCell.Tab.0.left" timestamp="1670409446215">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="334" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1670409446215" />
+    <state width="1515" height="334" key="GridCell.Tab.0.right" timestamp="1670409446216">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="334" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1670409446216" />
+    <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1669370975465">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1669370975465" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1669564959152">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1669564959152" />
   </component>
 </project>

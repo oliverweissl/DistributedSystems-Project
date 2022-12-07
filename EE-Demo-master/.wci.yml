@@ -1,0 +1,17 @@
+name: Apollo Runtime System
+
+headline: A runtime system for the orchestration of workflows across the cloud-edge-Iot continuum.
+
+description: A runtime system for the orchestration of workflows across the cloud-edge-Iot continuum.
+
+language: Polyglot for Functions, AFCL for workflows
+            
+            
+documentation: # nothing will be used if not provided
+  general: https://github.com/Apollo-Core
+  installation: https://github.com/Apollo-Core/EE-Demo
+  tutorial: https://github.com/Apollo-Core/Tutorial
+            
+social: # nothing will be used if not provided
+  youtube: https://www.youtube.com/channel/UCk3lsT2ImJl3hqhg7mc15Ag
+                  
