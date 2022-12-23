@@ -1,5 +1,6 @@
 {
-  "bucket": "dsworkflowtestgr9",
+  "redis": "3.42.231.16",
+  "password": "testpw",
   "batch_size": 1,
   "emotions": [
     "HAPPY",
