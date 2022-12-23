@@ -1,0 +1,9 @@
+{
+  "bucket": "dsworkflowtestgr9",
+  "batch_size": 1,
+  "emotions": [
+    "HAPPY",
+    "SAD"
+  ],
+  "face_size": 64
+}
